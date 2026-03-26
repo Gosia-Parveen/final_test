@@ -100,6 +100,13 @@ So make sure:
   Otherwise, data will not be visible on the user dashboard.
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+##  Demo Video 
+
+Watch the working of the project here:
+  **https://drive.google.com/file/d/13lLZ04MIVs9A8kyFPIYDkT3eMIN1hVMh/view?usp=sharing
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 ##  Author
 
 Developed by a student as a full-stack Django project to understand real-world workflow and backend logic.
