@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>user_dash</title>
+
+  {% load static %}  <!-- ✅ for images -->
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+
+  <style>
+    body {
+      margin: 0;
+      padding: 70px 0 0 0;
+      width: 100%;
+    }
+
+    /* ================= SIDEBAR ================= */
+    #sidebar {
+      position: fixed;
+      top: 70px; /* ✅ fixed */
+      left: 0;
+      width: 250px;
+      height: calc(100vh - 70px); /* ✅ fixed */
+      background-color: #670626;
+      transform: translateX(-100%);
+      transition: transform 0.3s ease-in-out;
+      z-index: 1050;
+      overflow-y: auto;
+    }
+
+
+    #sidebar.show {
+      transform: translateX(0);
+    }
+
+    /* ================= IMAGE SLIDER ================= */
+    #image_column {
+      height: 380px;
+      width: 100vw;
+      margin-top: 5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+
+    /* ================= CONTACT ================= */
+    .contact_des {
+      height: 380px;
+      width: 100%;
+      background-color: #3b0416;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 40px;
+      padding: 20px;
+    }
+
+    .act_des p {
+      font-size: 28px;
+      font-family: 'Franklin Gothic Medium';
+      color: #d2f0f9;
+    }
+
+    .act_des img {
+      height: 350px;
+      max-width: 450px;
+      border: 10px solid #d2f0f9;
+    }
+
+    .manual_text {
+      margin-left: 50px;
+    }
+
+    .manual_text h1 {
+      font-size: 35px;
+      color: #210a12;
+      text-align: center;
+    }
+
+    /* ================= MOBILE ================= */
+    @media (max-width: 768px) {
+      #sidebar {
+        width: 220px;
+      }
+
+      #image_column {
+        height: 105px;
+      }
+
+      .contact_des {
+        flex-direction: column;
+        height: auto;
+        text-align: center;
+      }
+
+      .act_des img {
+        max-width: 90%;
+        height: auto;
+      }
+
+      .manual_text {
+        margin-left: 0;
+        padding: 15px;
+        text-align: center;
+      }
+
+      .manual_text h1 { font-size: 26px; }
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- ================= NAVBAR ================= -->
+<nav class="navbar fixed-top navbar-dark" style="background-color: #670626">
+  <div class="container-fluid">
+
+    <div class="d-flex align-items-center gap-2">
+      <button class="navbar-toggler" id="toggleSidebar">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <h2 style="font-size: 20px; color: beige; font-family: cursive;">A_Certificates</h2>
+      <!-- ✅ fixed static path -->
+      <img src="{% static 'photo/black.png' %}" style="width:60px;" alt="logo">
+    </div>
+
+  </div>
+</nav>
+
+<!-- ================= SIDEBAR ================= -->
+<div id="sidebar">
+  <div class="p-3 border-bottom d-flex justify-content-end">
+    <button class="btn-close btn-close-white" id="closeSidebar"></button>
+  </div>
+
+  <ul class="navbar-nav px-3">
+    <!-- ✅ fixed links -->
+    <li class="nav-item"><a class="nav-link text-white" href="{% url 'user_dashboard' %}" style="font-size: 25px; color: beige;">Home</a></li>
+    <li class="nav-item"><a class="nav-link text-white" href="{% url 'events' %}" style="font-size: 25px; color: beige;">Events</a></li>
+    <li class="nav-item"><a class="nav-link text-white" href="{% url 'certificates' %}" style="font-size: 25px; color: beige;">Certificates</a></li>
+  </ul>
+</div>
+
+<!-- ================= MAIN ================= -->
+<main class="content-wrapper">
+
+  <div id="image_column"></div>
+
+  <div class="manual_text">
+    <div class="container mt-4">
+
+<h2>Your Certificates</h2>
+
+{% if participations %}
+  <ul class="list-group">
+    {% for cert in participations %}
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        
+        {{ cert.event.name }}
+
+        <a href="{{ cert.file.url }}" class="btn btn-success btn-sm" download>
+          Download
+        </a>
+
+      </li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p>No certificates available</p>
+{% endif %}
+
+</div>
+  </div>
+
+</main>
+
+<!-- ================= SCRIPT ================= -->
+<script>
+  const sidebar = document.getElementById('sidebar');
+  const toggleBtn = document.getElementById('toggleSidebar');
+  const closeBtn = document.getElementById('closeSidebar');
+
+  toggleBtn.addEventListener('click', () => {
+    sidebar.classList.toggle('show');
+  });
+
+  closeBtn.addEventListener('click', () => {
+    sidebar.classList.remove('show');
+  });
+
+  // slideshow
+  function startSlideshow() {
+    var img = [
+      "{% static 'photo/1.jpg' %}",
+      "{% static 'photo/2.jpg' %}"
+    ];
+
+    var index = 0;
+    var box = document.getElementById("image_column");
+
+    function changeImage() {
+      box.style.backgroundImage = "url('" + img[index] + "')";
+      index = (index + 1) % img.length;
+    }
+
+    changeImage();
+    setInterval(changeImage, 3000);
+  }
+
+  window.onload = startSlideshow;
+</script>
+
+</body>
+</html>
