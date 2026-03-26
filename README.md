@@ -42,7 +42,7 @@ Follow these steps to run the project on your system:
 
 ### 1. Clone the repository
 
-git clone <>
+git clone <https://github.com/Gosia-Parveen/final_test.git>
 
 cd <A_Certificates>
 
