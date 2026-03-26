@@ -43,32 +43,35 @@ Follow these steps to run the project on your system:
 ### 1. Clone the repository
 
 git clone <>
-cd <project-folder>
+
+cd <A_Certificates>
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 ### 2. Install dependencies
 
-pip install django
+  pip install django
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 ### 3. Apply migrations
 
-python manage.py makemigrations
-python manage.py migrate
+  python manage.py makemigrations
+  
+  python manage.py migrate
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 ### 4. Create superuser (admin)
 
-python manage.py createsuperuser
+  python manage.py createsuperuser
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 ### 5. Run the server
 
-python manage.py runserver
+  python manage.py runserver
 
-Open in browser:
-http://127.0.0.1:8000/
+  Open in browser:
+
+   http://127.0.0.1:8000/
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -89,9 +92,12 @@ http://127.0.0.1:8000/
 
 The system links users and participants using email.
 
+
 So make sure:
-User email == Participant email
-Otherwise, data will not be visible on the user dashboard.
+  
+  User email == Participant email
+
+  Otherwise, data will not be visible on the user dashboard.
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 ##  Author
